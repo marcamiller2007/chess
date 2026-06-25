@@ -1,0 +1,10 @@
+# Mac stuff
+.DS_Store
+*/.DS_Store
+
+# object files
+*.o
+
+# build
+build/
+bin/
