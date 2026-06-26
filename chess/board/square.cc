@@ -1,3 +1,4 @@
+#include "./piece.h"
 #include "./square.h"
 
 using namespace Board;
@@ -10,5 +11,4 @@ Square::Square(int position) : position_(position) {
 Square::~Square() {
 	delete piece_;
 	piece_ = nullptr;
-	body_ = nullptr;
 }

@@ -1,4 +1,5 @@
 #include "./piece.h"
+#include "./square.h"
 
 using namespace Board;
 
@@ -9,6 +10,5 @@ Piece::Piece(PieceType piece_type) : type_(piece_type) {
 }
 
 Piece::~Piece() {
-	delete position_;
-	position_ = nullptr;	
+
 }

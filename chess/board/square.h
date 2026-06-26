@@ -3,10 +3,10 @@
 
 #include <string>
 
-class Piece;
-
 namespace Board {
 	
+class Piece;
+
 class Square {
 public:
 	Square(int);

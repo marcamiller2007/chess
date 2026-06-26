@@ -3,9 +3,9 @@
 
 #include <string>
 
-class Square;
-
 namespace Board {
+
+class Square;
 
 enum class PieceType : int {
 	kPawn = 0,
