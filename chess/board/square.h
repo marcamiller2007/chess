@@ -1,7 +1,7 @@
 #ifndef SQUARE_H
 #define SQUARE_H
 
-#include <string>
+#include <SFML/Graphics.hpp>
 
 namespace Board {
 	
@@ -9,12 +9,12 @@ class Piece;
 
 class Square {
 public:
-	Square(int);
+	Square(sf::Color, sf::Vector2f);
 	~Square();
+	const int kSquareWidth = 80;
 private:
-	int position_;
 	Piece *piece_;
-	std::string body_;
+	sf::RectangleShape *body_;
 };
 }
 #endif
