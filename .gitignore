@@ -2,8 +2,12 @@
 .DS_Store
 */.DS_Store
 
-# object files
+# object files/ exec
+chess_game
 *.o
+
+# lsp server
+compile_flags.txt
 
 # build
 build/
