@@ -13,5 +13,5 @@ chess_game : $(OBJ)
 	$(CC) -o $@ $^ $(DEPENDENCIES)
 
 clean:
-	rm *.o
+	find . -type f -name "*.o" -delete
 	rm chess_game
