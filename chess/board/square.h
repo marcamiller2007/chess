@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Board {
+namespace Chess::Board {
 	
 class Piece;
 

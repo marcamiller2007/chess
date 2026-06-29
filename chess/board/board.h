@@ -1,13 +1,13 @@
+#ifndef BOARD_H
+#define BOARD_H
+
 #include <string>
 #include <vector>
 
 #include "./piece.h"
 #include "./square.h"
 
-#ifndef BOARD_H
-#define BOARD_H
-
-namespace Board {
+namespace Chess::Board {
 
 class Board {
 public:
@@ -20,5 +20,4 @@ private:
 	std::vector<Piece> pieces_;
 };
 }
-
 #endif
