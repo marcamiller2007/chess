@@ -17,9 +17,20 @@ Square::Square(sf::Color color, sf::Vector2f position) {
 	body_->setFillColor(color);
 }
 
+void Square::SetPiece(Piece *new_piece) {
+	if (piece_ != nullptr) {
+		// for now we will simply delete a piece that is captured
+		delete piece_;
+	}
+
+	piece_ = new_piece;
+}
+
 Square::~Square() {
-	delete piece_;
-	piece_ = nullptr;
+	if (piece_ != nullptr) {
+		delete piece_;
+		piece_ = nullptr;
+	}
 
 	delete body_;
 	body_ = nullptr;

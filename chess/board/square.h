@@ -10,6 +10,7 @@ class Piece;
 class Square {
 public:
 	Square(sf::Color, sf::Vector2f);
+	void SetPiece(Piece*);
 	~Square();
 	const int kSquareWidth = 80;
 private:

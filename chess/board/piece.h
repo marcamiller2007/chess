@@ -1,7 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include <string>
+#include <SFML/Graphics.hpp>
 
 namespace Board {
 
@@ -18,10 +18,11 @@ enum class PieceType : int {
 
 class Piece {
 public:
-	Piece(PieceType);
+	Piece(PieceType, Square*);
+	void MoveTo(Square*);
 	~Piece();
 private:
-	std::string name_;
+	sf::RectangleShape *body_;
 	PieceType type_;
 	Square *position_;
 	int kills_;
