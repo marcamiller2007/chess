@@ -3,7 +3,7 @@
 #include "./piece.h"
 #include "./square.h"
 
-using namespace Board;
+using namespace Chess::Board;
 
 Square::Square(sf::Color color, sf::Vector2f position) {
 	bool is_black_or_white = (color.toInteger() == sf::Color::Black.toInteger())

@@ -1,19 +1,17 @@
-#include <iostream>
+//#include <iostream>
 
 #include <SFML/Graphics.hpp>
 
+#include "./chess/screen.h"
+
+using namespace Chess;
+
 int main() {
-	std::cout << "Hello World!";
+	Screen *game = new Screen();
 
-	sf::RenderWindow window(sf::VideoMode({80, 80}), "Test Window");
+	game->Start();
 
-	while (window.isOpen()) {
-		while (const std::optional event = window.pollEvent()) {
-			if (event->is<sf::Event::Closed>()) {
-				window.close();
-			}
-		}
-	}
+	delete game;
 
 	return 0;
 }

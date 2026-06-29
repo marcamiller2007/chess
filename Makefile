@@ -1,7 +1,7 @@
 CC=g++
 CFLAGS=--std=c++17 -Wall -Werror -Wshadow -pedantic -g -I/opt/homebrew/include
 DEPENDENCIES=-L/opt/homebrew/lib -lsfml-graphics -lsfml-system -lsfml-window
-OBJ=main.o
+OBJ=./main.o ./chess/screen.o ./chess/board/board.o ./chess/board/square.o ./chess/board/piece.o
 
 main.o : main.cc
 	$(CC) -c $< -o $@ $(CFLAGS)

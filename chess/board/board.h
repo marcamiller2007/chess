@@ -17,7 +17,7 @@ public:
 	int Load(std::string);
 private:
 	Square **board_;
-	std::vector<Piece> pieces_;
+	std::vector<Piece> *pieces_;
 };
 }
 #endif

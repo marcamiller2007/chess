@@ -3,14 +3,14 @@
 #include "./piece.h"
 #include "./square.h"
 
-using namespace Board;
+using namespace Chess::Board;
 
 Piece::Piece(PieceType piece_type, Square *initial_square) : type_(piece_type) {
 	kills_ = 0;
 	position_ = nullptr;
 
 	// Set body shape based on Piece type
-	switch (piece_type) {
+	switch (type_) {
 		case PieceType::kPawn:
 			body_ = new sf::RectangleShape(sf::Vector2f(20, 20));
 			break;

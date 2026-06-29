@@ -12,9 +12,10 @@ public:
 	Screen();
 	void Start();
 	~Screen();
+	const uint16_t kWindowSize = 800;
 private:
-	sf::RenderWindow window_;
-	Board::Board state_;
+	sf::RenderWindow *window_;
+	Board::Board *state_;
 };
 }
 #endif
