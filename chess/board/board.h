@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include <SFML/Graphics.hpp>
+
 #include "./piece.h"
 #include "./square.h"
 
@@ -15,9 +17,11 @@ public:
 	~Board();
 	void Load();
 	int Load(std::string);
+	void Draw(sf::RenderWindow*);
 private:
-	Square **board_;
-	std::vector<Piece> *pieces_;
+	Square ***board_;
+	std::vector<Piece*> *active_pieces_;
+	std::vector<Piece*> *graveyard_;
 };
 }
 #endif
