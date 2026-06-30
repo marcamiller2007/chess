@@ -31,7 +31,8 @@ void Screen::GraphicsThread() {
 				}
 
 				// Clear, Redraw, Display
-				window_->clear(sf::Color::White);
+				int how_brown = 120;
+				window_->clear(sf::Color(how_brown, how_brown, how_brown));
 
 				state_->Draw(window_);
 

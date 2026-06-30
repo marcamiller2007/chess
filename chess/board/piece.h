@@ -18,7 +18,7 @@ enum class PieceType : int {
 
 class Piece {
 public:
-	Piece(PieceType, Square*);
+	Piece(PieceType, Square*, sf::Color);
 	~Piece();
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);

@@ -15,6 +15,7 @@ Square::Square(sf::Color color, sf::Vector2f position) {
 	// Graphics for board piece
 	body_ = new sf::RectangleShape(sf::Vector2f(kSquareWidth, kSquareWidth));
 	body_->setFillColor(color);
+	body_->setPosition(position);
 }
 
 /**

@@ -5,7 +5,7 @@
 
 using namespace Chess::Board;
 
-Piece::Piece(PieceType piece_type, Square *initial_square) : type_(piece_type) {
+Piece::Piece(PieceType piece_type, Square *initial_square, sf::Color color) : type_(piece_type) {
 	kills_ = 0;
 	position_ = nullptr;
 
@@ -34,6 +34,16 @@ Piece::Piece(PieceType piece_type, Square *initial_square) : type_(piece_type) {
 		default:
 			assert(false);
 	}
+
+	// Set color
+	if (color.toInteger() == sf::Color::White.toInteger()) {
+		body_->setOutlineColor(sf::Color::Black);
+	} else if (color.toInteger() == sf::Color::Black.toInteger()) {
+		body_->setOutlineColor(sf::Color::White);
+	}
+
+	body_->setFillColor(color);
+	body_->setOutlineThickness(1);
 
 	MoveTo(initial_square);
 }

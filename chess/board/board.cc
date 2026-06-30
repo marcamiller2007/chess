@@ -30,7 +30,7 @@ void Board::Load() {
 	// init all squares
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			sf::Vector2f position(100 + (j * Square::kSquareWidth), 100 + (i * Square::kSquareWidth));
+			sf::Vector2f position(80 + (j * Square::kSquareWidth), 80 + (i * Square::kSquareWidth));
 			if ((i + j) % 2 == 0) {
 				board_[i][j] = new Square(sf::Color::Black, position);
 			} else {
@@ -42,12 +42,14 @@ void Board::Load() {
 	// init all Pieces
 	// Pawns
 	for (int i = 0; i < 8; i++) {
-		Piece *w_pawn = new Piece(PieceType::kPawn, board_[6][i]);
-		Piece *b_pawn = new Piece(PieceType::kPawn, board_[6][i]);
+		Piece *w_pawn = new Piece(PieceType::kPawn, board_[6][i], sf::Color::White);
+		Piece *b_pawn = new Piece(PieceType::kPawn, board_[1][i], sf::Color::Black);
 		
 		active_pieces_->push_back(w_pawn);
 		active_pieces_->push_back(b_pawn);
-	}	
+	}
+
+	// others
 }
 
 /**
