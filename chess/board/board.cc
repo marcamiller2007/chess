@@ -6,6 +6,7 @@ using namespace Chess::Board;
 
 Board::Board(){
 	board_ = nullptr;
+	active_pieces_ = new std::vector<Piece*>();
 	graveyard_ = new std::vector<Piece*>();
 
 	std::cout << "Board init";
@@ -67,7 +68,7 @@ void Board::Draw(sf::RenderWindow *window) {
 	// Draw all squares and pieces
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
-			board_[i][j].Draw(window);
+			board_[i][j]->Draw(window);
 		}
 	}
 }

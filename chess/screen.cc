@@ -65,8 +65,12 @@ void Screen::EventThread() {
 }
 
 void Screen::Start() {
-	graphics_thread_ = std::thread(&Chess::Screen::GraphicsThread);
-	event_thread_ = std::thread(&Chess::Screen::EventThread);
+	// load the board
+	state_->Load();
+
+	// launch threads
+	graphics_thread_ = std::thread(&Chess::Screen::GraphicsThread, this);
+	event_thread_ = std::thread(&Chess::Screen::EventThread, this);
 
 	// wait to complete
 	graphics_thread_.join();

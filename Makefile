@@ -10,7 +10,7 @@ main.o : main.cc
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 chess_game : $(OBJ)
-	$(CC) -o $@ $^ $(DEPENDENCIES)
+	$(CC) -g -o $@ $^ $(DEPENDENCIES)
 
 clean:
 	find . -type f -name "*.o" -delete

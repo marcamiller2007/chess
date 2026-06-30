@@ -67,8 +67,8 @@ void Piece::Draw(sf::RenderWindow *window) {
 }
 
 Piece::~Piece() {
-	delete position_;
-	position_ = nullptr;
+	//delete position_;
+	//position_ = nullptr;
 
 	delete body_;
 	body_ = nullptr;
