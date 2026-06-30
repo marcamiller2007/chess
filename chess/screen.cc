@@ -27,6 +27,13 @@ void Screen::GraphicsThread() {
 				if (!window_->isOpen()){
 					return;
 				}
+
+				// Clear, Redraw, Display
+				window_->clear(sf::Color::White);
+
+				state_->Draw(window_);
+
+				window_->display();
 			}
 		}
 	}
