@@ -9,7 +9,7 @@ Board::Board(){
 	active_pieces_ = new std::vector<Piece*>();
 	graveyard_ = new std::vector<Piece*>();
 
-	std::cout << "Board init";
+	std::cout << "Board init\n";
 }
 
 /**
@@ -18,7 +18,7 @@ Board::Board(){
  */
 
 void Board::Load() {
-	std::cout << "creating Board";
+	std::cout << "creating Board\n";
 
 	// Create 2D array first
 	board_ = new Square**[8];
@@ -75,5 +75,5 @@ void Board::Draw(sf::RenderWindow *window) {
 
 Board::~Board() {
 	delete graveyard_;
-	std::cout << "Board destruct";
+	std::cout << "Board destruct\n";
 }

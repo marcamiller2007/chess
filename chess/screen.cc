@@ -14,6 +14,8 @@ Screen::Screen() {
 }
 
 void Screen::GraphicsThread() {
+	std::cout << "Starting graphics thread\n";
+
 	while (true) {		
 		// Board Lock
 		{
@@ -40,6 +42,8 @@ void Screen::GraphicsThread() {
 }
 
 void Screen::EventThread() {
+	std::cout << "Starting event thread\n";
+
 	while (true) {
 		// Board Logic
 		{
@@ -58,9 +62,7 @@ void Screen::EventThread() {
 					return;
 				}
 			}
-		}
-		
-		std::cout << "LogicThread";
+		}		
 	}
 }
 
@@ -70,11 +72,13 @@ void Screen::Start() {
 
 	// launch threads
 	graphics_thread_ = std::thread(&Chess::Screen::GraphicsThread, this);
-	event_thread_ = std::thread(&Chess::Screen::EventThread, this);
+	//event_thread_ = std::thread(&Chess::Screen::EventThread, this);
+
+	EventThread();
 
 	// wait to complete
 	graphics_thread_.join();
-	event_thread_.join();
+	//event_thread_.join();
 }
 
 Screen::~Screen() {
