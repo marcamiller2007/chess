@@ -13,23 +13,29 @@ Piece::Piece(PieceType piece_type, Square *initial_square, sf::Color color) : ty
 	switch (type_) {
 		case PieceType::kPawn:
 			body_ = new sf::RectangleShape(sf::Vector2f(20, 20));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
 			break;
 		case PieceType::kKnight:
 			body_ = new sf::RectangleShape(sf::Vector2f(20, 40));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
 			break;
 		case PieceType::kBishop:
 			body_ = new sf::RectangleShape(sf::Vector2f(30, 30));
-			body_->setRotation(sf::Angle(sf::radians(45)));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
+			body_->setRotation(sf::Angle(sf::degrees(45)));
 			break;
 		case PieceType::kRook:
 			body_ = new sf::RectangleShape(sf::Vector2f(30, 30));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
 			break;
 		case PieceType::kQueen:
 			body_ = new sf::RectangleShape(sf::Vector2f(45, 45));
-			body_->setRotation(sf::Angle(sf::radians(45)));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
+			body_->setRotation(sf::Angle(sf::degrees(45)));
 			break;
 		case PieceType::kKing:
 			body_ = new sf::RectangleShape(sf::Vector2f(40, 20));
+			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
 			break;
 		default:
 			assert(false);
@@ -53,6 +59,7 @@ Piece::Piece(PieceType piece_type, Square *initial_square, sf::Color color) : ty
  * of the square to null after it moves to the new one. If a piece already exists at the new location,
  * it will be deleted. No capture logic. Will also set position of the piece.
  */
+
 void Piece::MoveTo(Square *to_square) {
 	assert(to_square != nullptr);
 
@@ -64,14 +71,14 @@ void Piece::MoveTo(Square *to_square) {
 	to_square->SetPiece(this);
 
 	// set position of body_
-	sf::Vector2f square_center = to_square->GetCenter();
-	body_->setPosition(sf::Vector2f(square_center.x, square_center.y));
+	body_->setPosition(to_square->GetCenter());
 	return;
 }
 
 /**
  * This method draws the body of this piece onto the window.
  */
+
 void Piece::Draw(sf::RenderWindow *window) {
 	window->draw(*body_);
 }
