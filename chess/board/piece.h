@@ -18,13 +18,15 @@ enum class PieceType : int {
 
 class Piece {
 public:
-	Piece(PieceType, Square*, sf::Color);
+	Piece(PieceType, Square*, bool);
 	~Piece();
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);
+	static const sf::Texture kPieceTextures[12];
 private:
-	sf::RectangleShape *body_;
+	sf::Sprite *body_;
 	PieceType type_;
+	bool is_black_;
 	Square *position_;
 	int kills_;
 };

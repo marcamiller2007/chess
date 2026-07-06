@@ -5,52 +5,28 @@
 
 using namespace Chess::Board;
 
-Piece::Piece(PieceType piece_type, Square *initial_square, sf::Color color) : type_(piece_type) {
+const sf::Texture Piece::kPieceTextures[12] = {
+	sf::Texture("./chess/chess_models/Chess_plt60.png"),
+	sf::Texture("./chess/chess_models/Chess_pdt60.png"),
+	sf::Texture("./chess/chess_models/Chess_blt60.png"),
+	sf::Texture("./chess/chess_models/Chess_bdt60.png"),
+	sf::Texture("./chess/chess_models/Chess_nlt60.png"),
+	sf::Texture("./chess/chess_models/Chess_ndt60.png"),
+	sf::Texture("./chess/chess_models/Chess_rlt60.png"),
+	sf::Texture("./chess/chess_models/Chess_rdt60.png"),
+	sf::Texture("./chess/chess_models/Chess_qlt60.png"),
+	sf::Texture("./chess/chess_models/Chess_qdt60.png"),
+	sf::Texture("./chess/chess_models/Chess_klt60.png"),
+	sf::Texture("./chess/chess_models/Chess_kdt60.png")
+};
+
+Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type_(piece_type), is_black_(is_black) {
 	kills_ = 0;
 	position_ = nullptr;
 
-	// Set body shape based on Piece type
-	switch (type_) {
-		case PieceType::kPawn:
-			body_ = new sf::RectangleShape(sf::Vector2f(20, 20));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			break;
-		case PieceType::kKnight:
-			body_ = new sf::RectangleShape(sf::Vector2f(20, 40));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			break;
-		case PieceType::kBishop:
-			body_ = new sf::RectangleShape(sf::Vector2f(30, 30));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			body_->setRotation(sf::Angle(sf::degrees(45)));
-			break;
-		case PieceType::kRook:
-			body_ = new sf::RectangleShape(sf::Vector2f(30, 30));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			break;
-		case PieceType::kQueen:
-			body_ = new sf::RectangleShape(sf::Vector2f(45, 45));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			body_->setRotation(sf::Angle(sf::degrees(45)));
-			break;
-		case PieceType::kKing:
-			body_ = new sf::RectangleShape(sf::Vector2f(40, 20));
-			body_->setOrigin(sf::Vector2f(0.5 * body_->getSize().x, 0.5 * body_->getSize().y));
-			break;
-		default:
-			assert(false);
-	}
-
-	// Set color
-	if (color.toInteger() == sf::Color::White.toInteger()) {
-		body_->setOutlineColor(sf::Color::Black);
-	} else if (color.toInteger() == sf::Color::Black.toInteger()) {
-		body_->setOutlineColor(sf::Color::White);
-	}
-
-	body_->setFillColor(color);
-	body_->setOutlineThickness(1);
-
+	body_ = new sf::Sprite(kPieceTextures[(int) type_ * 2 + (int) is_black_]);
+	body_->setOrigin(body_->getGlobalBounds().getCenter());
+	
 	MoveTo(initial_square);
 }
 

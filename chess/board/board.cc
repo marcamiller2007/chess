@@ -42,19 +42,19 @@ void Board::Load() {
 	// init all Pieces
 	// Pawns
 	for (int i = 0; i < 8; i++) {
-		Piece *w_pawn = new Piece(PieceType::kPawn, board_[6][i], sf::Color::White);
-		Piece *b_pawn = new Piece(PieceType::kPawn, board_[1][i], sf::Color::Black);
+		Piece *w_pawn = new Piece(PieceType::kPawn, board_[6][i], false);
+		Piece *b_pawn = new Piece(PieceType::kPawn, board_[1][i], true);
 		
 		active_pieces_->push_back(w_pawn);
 		active_pieces_->push_back(b_pawn);
 	}
 
 	// Knights
-	Piece *wk1 = new Piece(PieceType::kKnight, board_[7][1], sf::Color::White);
-	Piece *wk2 = new Piece(PieceType::kKnight, board_[7][6], sf::Color::White);
+	Piece *wk1 = new Piece(PieceType::kKnight, board_[7][1], false);
+	Piece *wk2 = new Piece(PieceType::kKnight, board_[7][6], false);
 
-	Piece *bk1 = new Piece(PieceType::kKnight, board_[0][1], sf::Color::Black);
-	Piece *bk2 = new Piece(PieceType::kKnight, board_[0][6], sf::Color::Black);
+	Piece *bk1 = new Piece(PieceType::kKnight, board_[0][1], true);
+	Piece *bk2 = new Piece(PieceType::kKnight, board_[0][6], true);
 
 	active_pieces_->push_back(wk1);
 	active_pieces_->push_back(wk2);
@@ -62,11 +62,11 @@ void Board::Load() {
 	active_pieces_->push_back(bk2);
 
 	// Knights
-	Piece *wb1 = new Piece(PieceType::kBishop, board_[7][2], sf::Color::White);
-	Piece *wb2 = new Piece(PieceType::kBishop, board_[7][5], sf::Color::White);
+	Piece *wb1 = new Piece(PieceType::kBishop, board_[7][2], false);
+	Piece *wb2 = new Piece(PieceType::kBishop, board_[7][5], false);
 
-	Piece *bb1 = new Piece(PieceType::kBishop, board_[0][2], sf::Color::Black);
-	Piece *bb2 = new Piece(PieceType::kBishop, board_[0][5], sf::Color::Black);
+	Piece *bb1 = new Piece(PieceType::kBishop, board_[0][2], true);
+	Piece *bb2 = new Piece(PieceType::kBishop, board_[0][5], true);
 
 	active_pieces_->push_back(wb1);
 	active_pieces_->push_back(wb2);
@@ -74,11 +74,11 @@ void Board::Load() {
 	active_pieces_->push_back(bb2);
 
 	// Rooks
-	Piece *wr1 = new Piece(PieceType::kRook, board_[7][0], sf::Color::White);
-	Piece *wr2 = new Piece(PieceType::kRook, board_[7][7], sf::Color::White);
+	Piece *wr1 = new Piece(PieceType::kRook, board_[7][0], false);
+	Piece *wr2 = new Piece(PieceType::kRook, board_[7][7], false);
 
-	Piece *br1 = new Piece(PieceType::kRook, board_[0][0], sf::Color::Black);
-	Piece *br2 = new Piece(PieceType::kRook, board_[0][7], sf::Color::Black);
+	Piece *br1 = new Piece(PieceType::kRook, board_[0][0], true);
+	Piece *br2 = new Piece(PieceType::kRook, board_[0][7], true);
 
 	active_pieces_->push_back(wr1);
 	active_pieces_->push_back(wr2);
@@ -86,15 +86,15 @@ void Board::Load() {
 	active_pieces_->push_back(br2);
 
 	// kings	
-	Piece *wk = new Piece(PieceType::kKing, board_[7][3], sf::Color::White);
-	Piece *bk = new Piece(PieceType::kKing, board_[0][4], sf::Color::Black);
+	Piece *wk = new Piece(PieceType::kKing, board_[7][3], false);
+	Piece *bk = new Piece(PieceType::kKing, board_[0][4], true);
 
 	active_pieces_->push_back(wk);
 	active_pieces_->push_back(bk);
 
 	// queens	
-	Piece *wq = new Piece(PieceType::kQueen, board_[7][4], sf::Color::White);
-	Piece *bq = new Piece(PieceType::kQueen, board_[0][3], sf::Color::Black);
+	Piece *wq = new Piece(PieceType::kQueen, board_[7][4], false);
+	Piece *bq = new Piece(PieceType::kQueen, board_[0][3], true);
 
 	active_pieces_->push_back(wq);
 	active_pieces_->push_back(bq);
