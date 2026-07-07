@@ -14,6 +14,7 @@ public:
 	void Draw(sf::RenderWindow*);
 	void SetPiece(Piece*);
 	sf::Vector2f GetCenter();
+	bool IsPiece();
 	const static int kSquareWidth = 80;
 private:
 	Piece *piece_;

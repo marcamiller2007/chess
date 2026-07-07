@@ -5,26 +5,29 @@
 
 using namespace Chess::Board;
 
-const sf::Texture Piece::kPieceTextures[12] = {
-	sf::Texture("./chess/chess_models/Chess_plt60.png"),
-	sf::Texture("./chess/chess_models/Chess_pdt60.png"),
-	sf::Texture("./chess/chess_models/Chess_blt60.png"),
-	sf::Texture("./chess/chess_models/Chess_bdt60.png"),
-	sf::Texture("./chess/chess_models/Chess_nlt60.png"),
-	sf::Texture("./chess/chess_models/Chess_ndt60.png"),
-	sf::Texture("./chess/chess_models/Chess_rlt60.png"),
-	sf::Texture("./chess/chess_models/Chess_rdt60.png"),
-	sf::Texture("./chess/chess_models/Chess_qlt60.png"),
-	sf::Texture("./chess/chess_models/Chess_qdt60.png"),
-	sf::Texture("./chess/chess_models/Chess_klt60.png"),
-	sf::Texture("./chess/chess_models/Chess_kdt60.png")
+const std::string Piece::kPieceTextures[12] = {
+	"./chess/chess_models/Chess_plt60.png",
+	"./chess/chess_models/Chess_pdt60.png",
+	"./chess/chess_models/Chess_blt60.png",
+	"./chess/chess_models/Chess_bdt60.png",
+	"./chess/chess_models/Chess_nlt60.png",
+	"./chess/chess_models/Chess_ndt60.png",
+	"./chess/chess_models/Chess_rlt60.png",
+	"./chess/chess_models/Chess_rdt60.png",
+	"./chess/chess_models/Chess_qlt60.png",
+	"./chess/chess_models/Chess_qdt60.png",
+	"./chess/chess_models/Chess_klt60.png",
+	"./chess/chess_models/Chess_kdt60.png"
 };
 
 Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type_(piece_type), is_black_(is_black) {
 	kills_ = 0;
 	position_ = nullptr;
 
-	body_ = new sf::Sprite(kPieceTextures[(int) type_ * 2 + (int) is_black_]);
+	texture_ = new sf::Texture((std::filesystem::path) kPieceTextures[(int) type_ * 2 + (int) is_black_]);
+	//texture_->setSmooth(true);
+
+	body_ = new sf::Sprite(*texture_);
 	body_->setOrigin(body_->getGlobalBounds().getCenter());
 	
 	MoveTo(initial_square);
@@ -65,4 +68,7 @@ Piece::~Piece() {
 
 	delete body_;
 	body_ = nullptr;
+
+	delete texture_;
+	texture_ = nullptr;
 }

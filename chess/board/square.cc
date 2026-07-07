@@ -24,12 +24,15 @@ Square::Square(sf::Color color, sf::Vector2f position) {
  */
 
 void Square::SetPiece(Piece *new_piece) {
-	if (piece_ != nullptr) {
-		// for now we will simply delete a piece that is captured
-		delete piece_;
-	}
-
 	piece_ = new_piece;
+}
+
+/**
+ * This method will return true iff there is currently a piece at this Square.
+ */
+
+bool Square::IsPiece() {
+	return !(piece_ == nullptr);
 }
 
 /**
@@ -44,6 +47,10 @@ void Square::Draw(sf::RenderWindow *window) {
 		piece_->Draw(window);
 	}
 }
+
+/**
+ * This method will find and return the center of this Square in vector form.
+ */
 
 sf::Vector2f Square::GetCenter() {
 	sf::Vector2f top_left = body_->getPosition();

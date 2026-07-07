@@ -19,12 +19,15 @@ enum class PieceType : int {
 class Piece {
 public:
 	Piece(PieceType, Square*, bool);
+	Piece(const Piece&) = delete;
+	Piece& operator = (const Piece&) = delete;
 	~Piece();
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);
-	static const sf::Texture kPieceTextures[12];
+	static const std::string kPieceTextures[12];
 private:
 	sf::Sprite *body_;
+	sf::Texture *texture_;
 	PieceType type_;
 	bool is_black_;
 	Square *position_;

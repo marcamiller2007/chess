@@ -125,5 +125,7 @@ void Board::Draw(sf::RenderWindow *window) {
 
 Board::~Board() {
 	delete graveyard_;
+	delete board_;
+	delete active_pieces_;
 	std::cout << "Board destruct\n";
 }
