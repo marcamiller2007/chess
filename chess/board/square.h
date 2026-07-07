@@ -4,12 +4,13 @@
 #include <SFML/Graphics.hpp>
 
 namespace Chess::Board {
-	
+
+class Board;
 class Piece;
 
 class Square {
 public:
-	Square(bool, sf::Vector2f);
+	Square(bool, sf::Vector2f, Board*);
 	~Square();
 
 	void Draw(sf::RenderWindow*);
@@ -18,6 +19,8 @@ public:
 	bool IsPiece();
 	void Select();
 	void Unselect();
+	sf::Vector2i GetLocation();
+	Square *FindNeighbor(sf::Vector2i);
 
 	const static int kSquareWidth = 80;
 	const static sf::Color kWhite;
@@ -26,6 +29,7 @@ public:
 private:
 	Piece *piece_;
 	sf::RectangleShape *body_;
+	Board *global_state_;
 	bool is_black_;
 };
 }

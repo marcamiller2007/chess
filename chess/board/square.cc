@@ -2,6 +2,7 @@
 
 #include "./piece.h"
 #include "./square.h"
+#include "./board.h"
 
 using namespace Chess::Board;
 
@@ -9,7 +10,8 @@ const sf::Color Square::kBlack(100, 100, 100);
 const sf::Color Square::kWhite(200, 200, 200);
 const sf::Color Square::kSelected(255, 127, 0);
 
-Square::Square(bool is_black, sf::Vector2f position) : is_black_(is_black) {
+Square::Square(bool is_black, sf::Vector2f position, Board *global_state)
+							 : global_state_(global_state), is_black_(is_black) {
 	piece_ = nullptr;
 
 	// Graphics for board piece
@@ -75,6 +77,25 @@ void Square::Select() {
 void Square::Unselect() {
 	body_->setFillColor(is_black_ ? kBlack : kWhite);
 }
+
+/**
+ * This method will get the position of this Square relative to the global state.
+ */
+
+sf::Vector2i Square::GetLocation() {
+	return global_state_->FindSquare(this);
+}
+
+/**
+ * This method will get the Square at a given vector location, relative to the global
+ * state.
+ */
+
+Square *Square::FindNeighbor(sf::Vector2i coords) {
+	return global_state_->FindSquare(coords);
+}
+
+/* Destructor */
 
 Square::~Square() {
 	if (piece_ != nullptr) {

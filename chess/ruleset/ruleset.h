@@ -3,9 +3,7 @@
 
 #include "../board/board.h"
 
-namespace Chess {
-
-namespace Ruleset {
+namespace Chess::Ruleset {
 
 class Ruleset {
 public:
@@ -26,7 +24,6 @@ private:
 	Board::PieceType piece_type_;
 };
 
-}
 }
 
 #endif

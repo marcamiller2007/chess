@@ -61,7 +61,14 @@ void Ruleset::DisplayMoves() {
  * vector, each returns void.
  */
 
-void Ruleset::ForPawn() {}
+void Ruleset::ForPawn() {
+	sf::Vector2i initial_position = current_square_->GetLocation();
+
+	// can move 1 or 2 squares forward
+	for (int i = 1; i <= 2; i++) {
+		if ((current_square_->FindNeighbor({initial_position.x + i, initial_position.y})))
+	}
+}
 void Ruleset::ForKnight() {}
 void Ruleset::ForBishop() {}
 void Ruleset::ForRook() {}

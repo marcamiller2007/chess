@@ -18,6 +18,8 @@ public:
 	void Load();
 	int Load(std::string);
 	void Draw(sf::RenderWindow*);
+	Square *FindSquare(sf::Vector2i);
+	sf::Vector2i FindSquare(Square*);
 private:
 	Square ***board_;
 	std::vector<Piece*> *active_pieces_;

@@ -2,6 +2,7 @@
 
 #include "./piece.h"
 #include "./square.h"
+#include "../ruleset/ruleset.h"
 
 using namespace Chess::Board;
 
@@ -34,6 +35,9 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type
 	}
 	
 	MoveTo(initial_square);
+
+	assert(position_ != nullptr);
+	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_);
 }
 
 /**
@@ -55,6 +59,15 @@ void Piece::MoveTo(Square *to_square) {
 	// set position of body_
 	body_->setPosition(to_square->GetCenter());
 	return;
+}
+
+/**
+ * This function will handle all necessary Piece-level events when this piece is selected for a move.
+ */
+
+void Piece::HandleClick() {
+	// Updates ruleset
+	ruleset_->CreateRuleset(position_);
 }
 
 /**

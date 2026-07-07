@@ -3,7 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 
-namespace Chess::Board {
+namespace Chess {
+
+namespace Ruleset {
+
+class Ruleset;
+
+}
+
+namespace Board {
 
 class Square;
 
@@ -22,6 +30,7 @@ public:
 	~Piece();
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);
+	void HandleClick();
 	static const std::string kPieceTextures[12];
 private:
 	sf::Sprite *body_;
@@ -29,7 +38,10 @@ private:
 	PieceType type_;
 	bool is_black_;
 	Square *position_;
+	Chess::Ruleset::Ruleset *ruleset_;
 	int kills_;
 };
+
+}
 }
 #endif

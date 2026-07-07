@@ -32,9 +32,9 @@ void Board::Load() {
 		for (int j = 0; j < 8; j++) {
 			sf::Vector2f position(80 + (j * Square::kSquareWidth), 80 + (i * Square::kSquareWidth));
 			if ((i + j) % 2 == 0) {
-				board_[i][j] = new Square(true, position);
+				board_[i][j] = new Square(true, position, this);
 			} else {
-				board_[i][j] = new Square(false, position);
+				board_[i][j] = new Square(false, position, this);
 			}
 		}
 	}
@@ -122,6 +122,38 @@ void Board::Draw(sf::RenderWindow *window) {
 		}
 	}
 }
+
+/**
+ * This function will return the Square corresponding to the vector form coordinates given.
+ * NOTE: x corresponds to row, and y to column.
+ */
+
+Square *Board::FindSquare(sf::Vector2i coords) {
+	if ((coords.x < 0) || (coords.x >= 8) ||
+			(coords.y < 0) || (coords.y >= 8)) {
+		return nullptr;// out of bounds
+	}
+
+	return board_[coords.x][coords.y];
+}
+
+/**
+ * This function will return the vector form coordinates corresponding to the given Square.
+ */
+
+sf::Vector2i Board::FindSquare(Square *square) {
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (board_[i][j] == square) {
+				return {i, j};
+			}
+		}
+	}
+
+	return {-1, -1}; // Something is desperately wrong if this returns
+}
+
+/* Destructor */
 
 Board::~Board() {
 	delete graveyard_;
