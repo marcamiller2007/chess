@@ -1,0 +1,73 @@
+#include "./ruleset.h"
+
+using namespace Chess::Ruleset;
+
+Ruleset::Ruleset(Board::PieceType piece_type, Board::Square *current_square)
+: current_square_(current_square), piece_type_(piece_type) {
+	possible_moves_ = new std::vector<Board::Square*>();
+
+	CreateRuleset(current_square_);
+}
+
+/**
+ * This method only exists because of pawn promotion.
+ */
+
+void Ruleset::ChangeType(Board::PieceType new_type) {
+	piece_type_ = new_type;
+}
+
+/**
+ * This method will create or edit a ruleset based on the given Board Square.
+ */
+
+void Ruleset::CreateRuleset(Board::Square *square) {
+	if (current_square_ != square) {
+		current_square_ = square;
+	}
+
+	switch (piece_type_) {
+		case Board::PieceType::kPawn:
+			ForPawn();
+			break;
+		case Board::PieceType::kKnight:
+			ForKnight();
+			break;
+		case Board::PieceType::kBishop:
+			ForBishop();
+			break;
+		case Board::PieceType::kRook:
+			ForRook();
+			break;
+		case Board::PieceType::kQueen:
+			ForQueen();
+			break;
+		case Board::PieceType::kKing:
+			ForKing();
+			break;
+		default:
+			assert(false);
+	}
+}
+
+void Ruleset::DisplayMoves() {
+	for (int i = 0; i < possible_moves_->size(); i++) {
+		possible_moves_->at(i)->Select();
+	}
+}
+
+/**
+ * These are the methods that will add legal moves for each piece to the possible_moves_
+ * vector, each returns void.
+ */
+
+void Ruleset::ForPawn() {}
+void Ruleset::ForKnight() {}
+void Ruleset::ForBishop() {}
+void Ruleset::ForRook() {}
+void Ruleset::ForQueen() {}
+void Ruleset::ForKing() {}
+
+Ruleset::~Ruleset() {
+	delete possible_moves_;
+}

@@ -5,19 +5,17 @@
 
 using namespace Chess::Board;
 
-Square::Square(bool is_black, sf::Vector2f position) {
+const sf::Color Square::kBlack(100, 100, 100);
+const sf::Color Square::kWhite(200, 200, 200);
+const sf::Color Square::kSelected(255, 127, 0);
+
+Square::Square(bool is_black, sf::Vector2f position) : is_black_(is_black) {
 	piece_ = nullptr;
 
 	// Graphics for board piece
 	body_ = new sf::RectangleShape(sf::Vector2f(kSquareWidth, kSquareWidth));
 	body_->setPosition(position);
-
-	if (is_black) {
-		body_->setFillColor(sf::Color(100, 100, 100));
-	}
-	else {
-		body_->setFillColor(sf::Color(200, 200, 200));
-	}
+	body_->setFillColor(is_black_ ? kBlack : kWhite);
 }
 
 /**
@@ -58,6 +56,24 @@ sf::Vector2f Square::GetCenter() {
 	sf::Vector2f top_left = body_->getPosition();
 
 	return sf::Vector2f(top_left.x + (kSquareWidth / 2.f), top_left.y + (kSquareWidth / 2.f));
+}
+
+/**
+ * This method will "highlight" this Square. Will change the fill Color of this
+ * Square so a possible move will be visible.
+ */
+
+void Square::Select() {
+	body_->setFillColor(kSelected);
+}
+
+/**
+ * This method will do the functional opposite of the above method. It will revert
+ * the fill color of this Square.
+ */
+
+void Square::Unselect() {
+	body_->setFillColor(is_black_ ? kBlack : kWhite);
 }
 
 Square::~Square() {
