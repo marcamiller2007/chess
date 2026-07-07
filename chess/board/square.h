@@ -9,7 +9,7 @@ class Piece;
 
 class Square {
 public:
-	Square(sf::Color, sf::Vector2f);
+	Square(bool, sf::Vector2f);
 	~Square();
 	void Draw(sf::RenderWindow*);
 	void SetPiece(Piece*);

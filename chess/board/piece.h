@@ -19,8 +19,6 @@ enum class PieceType : int {
 class Piece {
 public:
 	Piece(PieceType, Square*, bool);
-	Piece(const Piece&) = delete;
-	Piece& operator = (const Piece&) = delete;
 	~Piece();
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);

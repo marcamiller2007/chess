@@ -25,10 +25,13 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type
 	position_ = nullptr;
 
 	texture_ = new sf::Texture((std::filesystem::path) kPieceTextures[(int) type_ * 2 + (int) is_black_]);
-	//texture_->setSmooth(true);
 
 	body_ = new sf::Sprite(*texture_);
 	body_->setOrigin(body_->getGlobalBounds().getCenter());
+	
+	if (is_black_) {
+		body_->setColor(sf::Color(255, 255, 255));
+	}
 	
 	MoveTo(initial_square);
 }

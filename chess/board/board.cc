@@ -32,9 +32,9 @@ void Board::Load() {
 		for (int j = 0; j < 8; j++) {
 			sf::Vector2f position(80 + (j * Square::kSquareWidth), 80 + (i * Square::kSquareWidth));
 			if ((i + j) % 2 == 0) {
-				board_[i][j] = new Square(sf::Color::Black, position);
+				board_[i][j] = new Square(true, position);
 			} else {
-				board_[i][j] = new Square(sf::Color::White, position);
+				board_[i][j] = new Square(false, position);
 			}
 		}
 	}

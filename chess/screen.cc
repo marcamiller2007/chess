@@ -16,6 +16,8 @@ Screen::Screen() {
 void Screen::GraphicsThread() {
 	std::cout << "Starting graphics thread\n";
 
+	sf::Color brown(88, 57, 39);
+
 	while (true) {		
 		// Board Lock
 		{
@@ -31,8 +33,7 @@ void Screen::GraphicsThread() {
 				}
 
 				// Clear, Redraw, Display
-				int how_brown = 120;
-				window_->clear(sf::Color(how_brown, how_brown, how_brown));
+				window_->clear(brown);
 
 				state_->Draw(window_);
 

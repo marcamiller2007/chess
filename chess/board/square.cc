@@ -5,17 +5,19 @@
 
 using namespace Chess::Board;
 
-Square::Square(sf::Color color, sf::Vector2f position) {
-	bool is_black_or_white = (color.toInteger() == sf::Color::Black.toInteger())
-		|| (color.toInteger() == sf::Color::White.toInteger());
-	assert(is_black_or_white);
-
+Square::Square(bool is_black, sf::Vector2f position) {
 	piece_ = nullptr;
 
 	// Graphics for board piece
 	body_ = new sf::RectangleShape(sf::Vector2f(kSquareWidth, kSquareWidth));
-	body_->setFillColor(color);
 	body_->setPosition(position);
+
+	if (is_black) {
+		body_->setFillColor(sf::Color(100, 100, 100));
+	}
+	else {
+		body_->setFillColor(sf::Color(200, 200, 200));
+	}
 }
 
 /**
