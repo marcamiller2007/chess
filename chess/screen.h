@@ -1,7 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
-#include <mutex>
+#include <shared_mutex>
 #include <thread>
 
 #include <SFML/Graphics.hpp>
@@ -25,8 +25,8 @@ private:
 	void GraphicsThread();
 	void EventThread();
 
-	mutable std::mutex board_lock_;
-	mutable std::mutex window_lock_;
+	mutable std::shared_mutex board_lock_;
+	mutable std::shared_mutex window_lock_;
 
 	std::thread graphics_thread_;
 	std::thread event_thread_;
