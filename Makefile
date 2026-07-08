@@ -11,6 +11,7 @@ main.o : main.cc
 
 chess_game : $(OBJ)
 	$(CC) -g -o $@ $^ $(DEPENDENCIES)
+	./$@
 
 clean:
 	find . -type f -name "*.o" -delete
