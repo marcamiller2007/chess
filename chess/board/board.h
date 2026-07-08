@@ -21,10 +21,13 @@ public:
 	Square *FindSquare(sf::Vector2i);
 	sf::Vector2i FindSquare(Square*);
 	void HandleClick(sf::Vector2i);
+	bool ShouldUpdate();
+	void SetUpdateFalse();
 private:
 	Square ***board_;
 	std::vector<Piece*> *active_pieces_;
 	std::vector<Piece*> *graveyard_;
+	bool update_;
 };
 }
 #endif

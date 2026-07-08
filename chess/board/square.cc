@@ -75,6 +75,11 @@ void Square::Select() {
  */
 
 void Square::Unselect() {
+	if (body_->getFillColor() ==
+					(is_black_ ? kBlack : kWhite)) {
+		return;
+	}
+
 	body_->setFillColor(is_black_ ? kBlack : kWhite);
 }
 
@@ -106,6 +111,7 @@ bool Square::HandleClick(sf::Vector2i click) {
 		return true;
 	}
 
+	Unselect();
 	return false;
 }
 

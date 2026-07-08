@@ -18,45 +18,55 @@ void Screen::GraphicsThread() {
 
 	sf::Color brown(88, 57, 39);
 
-	while (true) {		
+	while (true) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+
 		// Board Lock
 		{
 			std::lock_guard<std::mutex> board_guard(board_lock_);
 
-			// Window Lock
+			if (!state_->ShouldUpdate()) {
+				continue;
+			}
+		}
+
+
+		// Window Lock
+		{
+			std::lock_guard<std::mutex> window_guard(window_lock_);
+
+			// Check if window is still open
+			if (!window_->isOpen()){
+				return;
+			}
+
+			// Clear, Redraw, Display
+			window_->clear(brown);
+
+			// Board Lock
 			{
-				std::lock_guard<std::mutex> window_guard(window_lock_);
-
-				// Check if window is still open
-				if (!window_->isOpen()){
-					return;
-				}
-
-				// Clear, Redraw, Display
-				window_->clear(brown);
+				std::lock_guard<std::mutex> board_guard(board_lock_);
 
 				state_->Draw(window_);
 
-				window_->display();
+				state_->SetUpdateFalse();
 			}
+
+			window_->display();
 		}
+
 	}
 }
 
 void Screen::EventThread() {
 	std::cout << "Starting event thread\n";
 
-	while (true) {
-		// Board Logic
-		{
-			std::lock_guard<std::mutex> guard(board_lock_);
-
-			// Do things here
-		}
+	while (true) {	
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 
 		// Poll for events
 		{
-			std::lock_guard<std::mutex> guard(window_lock_);
+			std::lock_guard<std::mutex> window_guard(window_lock_);
 			
 			while(const std::optional event = window_->pollEvent()) {
 				if (event->is<sf::Event::Closed>()) {
@@ -67,11 +77,13 @@ void Screen::EventThread() {
 				// Poll for a user click
 				if (event->is<sf::Event::MouseButtonPressed>()) {
 					sf::Vector2i mouse_coords = sf::Mouse::getPosition(*window_);
-					std::cout << "X: " << mouse_coords.x << "Y:" << mouse_coords.y << "\n";
+					std::cout << "X: " << mouse_coords.x << " Y: " << mouse_coords.y << "\n";
 
 					// Check it was in the window's area
 					if ((mouse_coords.x >= 0) && (mouse_coords.x <= 800) &&
 							(mouse_coords.y >= 0) && (mouse_coords.y <= 800)) {
+						std::lock_guard<std::mutex> board_guard(board_lock_);
+						
 						// send click to the board
 						state_->HandleClick(mouse_coords);
 					}

@@ -8,6 +8,7 @@ Board::Board(){
 	board_ = nullptr;
 	active_pieces_ = new std::vector<Piece*>();
 	graveyard_ = new std::vector<Piece*>();
+	update_ = false;
 
 	std::cout << "Board init\n";
 }
@@ -98,6 +99,8 @@ void Board::Load() {
 
 	active_pieces_->push_back(wq);
 	active_pieces_->push_back(bq);
+
+	update_ = true;
 }
 
 /**
@@ -163,13 +166,23 @@ void Board::HandleClick(sf::Vector2i click) {
 	
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
+			//std::cout << "Checking Square " << i << ", " << j << "\n";
 			if (board_[i][j]->HandleClick(click)) {
-				std::cout << "Click at Square " << i << ", " << j;
-				break;
+				std::cout << "Click at Square " << i << ", " << j << "\n";
+				
+				update_ = true;
 				// the click applies to this square
 			}
 		}
 	}
+}
+
+bool Board::ShouldUpdate() {
+	return update_;
+}
+
+void Board::SetUpdateFalse() {
+	update_ = false;
 }
 
 /* Destructor */
