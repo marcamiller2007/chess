@@ -66,7 +66,11 @@ void Ruleset::ForPawn() {
 
 	// can move 1 or 2 squares forward
 	for (int i = 1; i <= 2; i++) {
-		if ((current_square_->FindNeighbor({initial_position.x + i, initial_position.y})))
+		Board::Square *square = current_square_->FindNeighbor({initial_position.x + i, initial_position.y});
+
+		if (square != nullptr) {
+			possible_moves_->push_back(square);
+		}
 	}
 }
 void Ruleset::ForKnight() {}
