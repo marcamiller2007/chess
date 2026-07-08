@@ -21,6 +21,7 @@ public:
 	void Unselect();
 	sf::Vector2i GetLocation();
 	Square *FindNeighbor(sf::Vector2i);
+	bool HandleClick(sf::Vector2i);
 
 	const static int kSquareWidth = 80;
 	const static sf::Color kWhite;

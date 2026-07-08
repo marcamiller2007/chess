@@ -95,6 +95,20 @@ Square *Square::FindNeighbor(sf::Vector2i coords) {
 	return global_state_->FindSquare(coords);
 }
 
+/**
+ * This method will handle a click at the given mouse position. It will return true
+ * iff the given click falls within the bounderies of the square and false otherwise.
+ */
+
+bool Square::HandleClick(sf::Vector2i click) {
+	if (body_->getGlobalBounds().contains((sf::Vector2f) click)) {
+		Select();
+		return true;
+	}
+
+	return false;
+}
+
 /* Destructor */
 
 Square::~Square() {

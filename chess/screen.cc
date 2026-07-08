@@ -63,6 +63,19 @@ void Screen::EventThread() {
 					window_->close();
 					return;
 				}
+
+				// Poll for a user click
+				if (event->is<sf::Event::MouseButtonPressed>()) {
+					sf::Vector2i mouse_coords = sf::Mouse::getPosition(*window_);
+					std::cout << "X: " << mouse_coords.x << "Y:" << mouse_coords.y << "\n";
+
+					// Check it was in the window's area
+					if ((mouse_coords.x >= 0) && (mouse_coords.x <= 800) &&
+							(mouse_coords.y >= 0) && (mouse_coords.y <= 800)) {
+						// send click to the board
+						state_->HandleClick(mouse_coords);
+					}
+				}
 			}
 		}		
 	}
@@ -74,13 +87,11 @@ void Screen::Start() {
 
 	// launch threads
 	graphics_thread_ = std::thread(&Chess::Screen::GraphicsThread, this);
-	//event_thread_ = std::thread(&Chess::Screen::EventThread, this);
 
 	EventThread();
 
 	// wait to complete
 	graphics_thread_.join();
-	//event_thread_.join();
 }
 
 Screen::~Screen() {

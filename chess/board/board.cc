@@ -153,6 +153,25 @@ sf::Vector2i Board::FindSquare(Square *square) {
 	return {-1, -1}; // Something is desperately wrong if this returns
 }
 
+/**
+ * THis method will handle all functionality associated with the given click coordinates.
+ * Will also pass the click to Squares and pieces.
+ */
+
+void Board::HandleClick(sf::Vector2i click) {
+	// First: Clear the board of all selections
+	
+	for (int i = 0; i < 8; i++) {
+		for (int j = 0; j < 8; j++) {
+			if (board_[i][j]->HandleClick(click)) {
+				std::cout << "Click at Square " << i << ", " << j;
+				break;
+				// the click applies to this square
+			}
+		}
+	}
+}
+
 /* Destructor */
 
 Board::~Board() {
