@@ -23,10 +23,12 @@ public:
 	void HandleClick(sf::Vector2i);
 	bool ShouldUpdate();
 	void SetUpdateFalse();
+	void PushSelected(Square*);
 private:
 	Square ***board_;
 	std::vector<Piece*> *active_pieces_;
 	std::vector<Piece*> *graveyard_;
+	std::vector<Square*> *selected_squares_;
 	bool update_;
 };
 }

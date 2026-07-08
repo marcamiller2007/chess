@@ -66,6 +66,8 @@ sf::Vector2f Square::GetCenter() {
  */
 
 void Square::Select() {
+	global_state_->PushSelected(this);
+
 	body_->setFillColor(kSelected);
 }
 
@@ -111,7 +113,6 @@ bool Square::HandleClick(sf::Vector2i click) {
 		return true;
 	}
 
-	Unselect();
 	return false;
 }
 

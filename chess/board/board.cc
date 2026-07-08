@@ -8,6 +8,7 @@ Board::Board(){
 	board_ = nullptr;
 	active_pieces_ = new std::vector<Piece*>();
 	graveyard_ = new std::vector<Piece*>();
+	selected_squares_ = new std::vector<Square*>();
 	update_ = false;
 
 	std::cout << "Board init\n";
@@ -163,6 +164,10 @@ sf::Vector2i Board::FindSquare(Square *square) {
 
 void Board::HandleClick(sf::Vector2i click) {
 	// First: Clear the board of all selections
+	while (!selected_squares_->empty()) {
+		selected_squares_->back()->Unselect();
+		selected_squares_->pop_back();
+	}
 	
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
@@ -172,6 +177,8 @@ void Board::HandleClick(sf::Vector2i click) {
 				
 				update_ = true;
 				// the click applies to this square
+				
+				return;
 			}
 		}
 	}
@@ -185,11 +192,20 @@ void Board::SetUpdateFalse() {
 	update_ = false;
 }
 
+/**
+ * This method will push a selected Square (given) onto the selected squares vector
+ */
+
+void Board::PushSelected(Square *square) {
+	selected_squares_->push_back(square);
+}
+
 /* Destructor */
 
 Board::~Board() {
 	delete graveyard_;
 	delete board_;
 	delete active_pieces_;
+	delete selected_squares_;
 	std::cout << "Board destruct\n";
 }
