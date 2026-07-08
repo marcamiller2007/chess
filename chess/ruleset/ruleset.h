@@ -7,7 +7,7 @@ namespace Chess::Ruleset {
 
 class Ruleset {
 public:
-	Ruleset(Board::PieceType, Board::Square*);
+	Ruleset(Board::PieceType, Board::Square*, bool);
 	~Ruleset();
 	void ChangeType(Board::PieceType);
 	void CreateRuleset(Board::Square*);
@@ -22,6 +22,7 @@ private:
 	Board::Square *current_square_;
 	std::vector<Board::Square*> *possible_moves_;
 	Board::PieceType piece_type_;
+	bool is_black_;
 };
 
 }

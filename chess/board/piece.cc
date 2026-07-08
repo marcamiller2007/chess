@@ -37,7 +37,7 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type
 	MoveTo(initial_square);
 
 	assert(position_ != nullptr);
-	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_);
+	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_, is_black_);
 }
 
 /**
@@ -68,6 +68,7 @@ void Piece::MoveTo(Square *to_square) {
 void Piece::HandleClick() {
 	// Updates ruleset
 	ruleset_->CreateRuleset(position_);
+	ruleset_->DisplayMoves();
 }
 
 /**

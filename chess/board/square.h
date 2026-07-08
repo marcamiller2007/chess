@@ -30,7 +30,9 @@ public:
 private:
 	Piece *piece_;
 	sf::RectangleShape *body_;
+	sf::CircleShape *highlight_;
 	Board *global_state_;
+	bool selected_;
 	bool is_black_;
 };
 }

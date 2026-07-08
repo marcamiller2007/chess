@@ -8,16 +8,23 @@ using namespace Chess::Board;
 
 const sf::Color Square::kBlack(100, 100, 100);
 const sf::Color Square::kWhite(200, 200, 200);
-const sf::Color Square::kSelected(255, 127, 0);
+const sf::Color Square::kSelected(255, 127, 0, 100);
 
 Square::Square(bool is_black, sf::Vector2f position, Board *global_state)
 							 : global_state_(global_state), is_black_(is_black) {
 	piece_ = nullptr;
+	selected_ = false;
 
 	// Graphics for board piece
-	body_ = new sf::RectangleShape(sf::Vector2f(kSquareWidth, kSquareWidth));
+	body_ = new sf::RectangleShape({kSquareWidth, kSquareWidth});
 	body_->setPosition(position);
 	body_->setFillColor(is_black_ ? kBlack : kWhite);
+
+	float radius = kSquareWidth / 6.0f;
+	highlight_ = new sf::CircleShape(radius);
+	highlight_->setOrigin({radius, radius});
+	highlight_->setPosition({position.x + radius * 3, position.y + radius * 3});
+	highlight_->setFillColor(kSelected);
 }
 
 /**
@@ -34,7 +41,7 @@ void Square::SetPiece(Piece *new_piece) {
  */
 
 bool Square::IsPiece() {
-	return !(piece_ == nullptr);
+	return (piece_ != nullptr);
 }
 
 /**
@@ -44,6 +51,10 @@ bool Square::IsPiece() {
 
 void Square::Draw(sf::RenderWindow *window) {
 	window->draw(*body_);
+
+	if (selected_) {
+		window->draw(*highlight_);
+	}
 
 	if (piece_ != nullptr) {
 		piece_->Draw(window);
@@ -68,7 +79,7 @@ sf::Vector2f Square::GetCenter() {
 void Square::Select() {
 	global_state_->PushSelected(this);
 
-	body_->setFillColor(kSelected);
+	selected_ = true;
 }
 
 /**
@@ -77,12 +88,7 @@ void Square::Select() {
  */
 
 void Square::Unselect() {
-	if (body_->getFillColor() ==
-					(is_black_ ? kBlack : kWhite)) {
-		return;
-	}
-
-	body_->setFillColor(is_black_ ? kBlack : kWhite);
+	selected_ = false;
 }
 
 /**
@@ -109,7 +115,11 @@ Square *Square::FindNeighbor(sf::Vector2i coords) {
 
 bool Square::HandleClick(sf::Vector2i click) {
 	if (body_->getGlobalBounds().contains((sf::Vector2f) click)) {
-		Select();
+		if (IsPiece()) {
+			//Select();
+			piece_->HandleClick();
+		}
+
 		return true;
 	}
 
@@ -126,4 +136,7 @@ Square::~Square() {
 
 	delete body_;
 	body_ = nullptr;
+
+	delete highlight_;
+	highlight_ = nullptr;
 }

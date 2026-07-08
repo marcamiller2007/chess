@@ -2,8 +2,9 @@
 
 using namespace Chess::Ruleset;
 
-Ruleset::Ruleset(Board::PieceType piece_type, Board::Square *current_square)
-: current_square_(current_square), piece_type_(piece_type) {
+Ruleset::Ruleset(Board::PieceType piece_type, Board::Square *current_square,
+								 bool is_black): current_square_(current_square),
+								 piece_type_(piece_type), is_black_(is_black) {
 	possible_moves_ = new std::vector<Board::Square*>();
 
 	CreateRuleset(current_square_);
@@ -22,6 +23,8 @@ void Ruleset::ChangeType(Board::PieceType new_type) {
  */
 
 void Ruleset::CreateRuleset(Board::Square *square) {
+	possible_moves_->clear();
+
 	if (current_square_ != square) {
 		current_square_ = square;
 	}
@@ -66,7 +69,13 @@ void Ruleset::ForPawn() {
 
 	// can move 1 or 2 squares forward
 	for (int i = 1; i <= 2; i++) {
-		Board::Square *square = current_square_->FindNeighbor({initial_position.x + i, initial_position.y});
+		Board::Square *square;
+
+		if (is_black_) {
+			square = current_square_->FindNeighbor({initial_position.x + i, initial_position.y});
+		} else {
+			square = current_square_->FindNeighbor({initial_position.x - i, initial_position.y});
+		}
 
 		if (square != nullptr) {
 			possible_moves_->push_back(square);
