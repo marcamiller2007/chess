@@ -137,7 +137,45 @@ void Ruleset::ForKnight() {
 	}
 }
 
-void Ruleset::ForBishop() {}
+void Ruleset::ForBishop() {
+	sf::Vector2i initial_position = current_square_->GetLocation();
+
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add = current_square_->FindNeighbor(
+			{initial_position.x + i, initial_position.y + i}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+
+		square_to_add = current_square_->FindNeighbor(
+			{initial_position.x - i, initial_position.y - i}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+	}
+
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add = current_square_->FindNeighbor(
+			{initial_position.x + i, initial_position.y - i}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+
+		square_to_add = current_square_->FindNeighbor(
+			{initial_position.x - i, initial_position.y + i}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+	}
+}
 void Ruleset::ForRook() {}
 void Ruleset::ForQueen() {}
 void Ruleset::ForKing() {}
