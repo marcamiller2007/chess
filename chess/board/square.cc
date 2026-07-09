@@ -124,7 +124,17 @@ Square *Square::FindNeighbor(sf::Vector2i coords) {
 bool Square::HandleClick(sf::Vector2i click) {
 	if (body_->getGlobalBounds().contains((sf::Vector2f) click)) {
 		if (IsPiece()) {
-			//Select();
+			if (global_state_->white_turn_ == piece_->kIsBlack) {
+				if ((global_state_->selected_piece_ != nullptr) &&
+						(global_state_->white_turn_ != global_state_->selected_piece_->kIsBlack)) {
+					// Capture
+					return true;
+				} else {
+					// Not Legal
+					return false;
+				}
+			}
+
 			piece_->HandleClick();
 		}
 

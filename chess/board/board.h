@@ -15,6 +15,7 @@ class Board {
 public:
 	Board();
 	~Board();
+
 	void Load();
 	int Load(std::string);
 	void Draw(sf::RenderWindow*);
@@ -24,12 +25,14 @@ public:
 	bool ShouldUpdate();
 	void SetUpdateFalse();
 	void PushSelected(Square*);
+
+	bool white_turn_;
+	Piece *selected_piece_;
 private:
 	Square ***board_;
 	std::vector<Piece*> *active_pieces_;
 	std::vector<Piece*> *graveyard_;
 	std::vector<Square*> *selected_squares_;
-	Piece *selected_piece_;
 	bool update_;
 };
 }
