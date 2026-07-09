@@ -9,10 +9,10 @@ using namespace Chess::Board;
 const std::string Piece::kPieceTextures[12] = {
 	"./chess/chess_models/Chess_plt60.png",
 	"./chess/chess_models/Chess_pdt60.png",
-	"./chess/chess_models/Chess_blt60.png",
-	"./chess/chess_models/Chess_bdt60.png",
 	"./chess/chess_models/Chess_nlt60.png",
 	"./chess/chess_models/Chess_ndt60.png",
+	"./chess/chess_models/Chess_blt60.png",
+	"./chess/chess_models/Chess_bdt60.png",
 	"./chess/chess_models/Chess_rlt60.png",
 	"./chess/chess_models/Chess_rdt60.png",
 	"./chess/chess_models/Chess_qlt60.png",

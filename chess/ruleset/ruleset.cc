@@ -82,7 +82,61 @@ void Ruleset::ForPawn() {
 		}
 	}
 }
-void Ruleset::ForKnight() {}
+
+void Ruleset::ForKnight() {
+	sf::Vector2i initial_position = current_square_->GetLocation();
+
+	Board::Square *square_to_add;
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x + 1, initial_position.y + 2}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x + 1, initial_position.y - 2}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x - 1, initial_position.y + 2}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x - 1, initial_position.y - 2}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x + 2, initial_position.y + 1}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x + 2, initial_position.y - 1}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x - 2, initial_position.y + 1}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+
+	square_to_add = (current_square_->FindNeighbor({initial_position.x - 2, initial_position.y - 1}));
+
+	if (square_to_add != nullptr) {
+		possible_moves_->push_back(square_to_add);
+	}
+}
+
 void Ruleset::ForBishop() {}
 void Ruleset::ForRook() {}
 void Ruleset::ForQueen() {}
