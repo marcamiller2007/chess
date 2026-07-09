@@ -1,6 +1,7 @@
 #ifndef SCREEN_H
 #define SCREEN_H
 
+#include <atomic>
 #include <shared_mutex>
 #include <thread>
 
@@ -22,14 +23,13 @@ private:
 	Board::Board *state_;
 
 	// Thread things
-	void GraphicsThread();
-	void EventThread();
+	void LogicThread();
+	void WindowThread();
 
 	mutable std::shared_mutex board_lock_;
-	mutable std::shared_mutex window_lock_;
+	std::atomic<bool> stop_;
 
-	std::thread graphics_thread_;
-	std::thread event_thread_;
+	std::thread *logic_thread_;
 };
 }
 #endif
