@@ -62,6 +62,25 @@ void Ruleset::CreateRuleset(Board::Square *square) {
 	}
 }
 
+/**
+ * THis method will take a Square object and will return true iff that
+ * Square is in the possible moves vector.
+ */
+
+bool Ruleset::IsPossible(Board::Square *square) {
+	for (int i = 0; i < possible_moves_->size(); i++) {
+		if (possible_moves_->at(i) == square) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * This method will display all possible moves in this ruleset.
+ */
+
 void Ruleset::DisplayMoves() {
 	for (int i = 0; i < possible_moves_->size(); i++) {
 		possible_moves_->at(i)->Select();

@@ -29,6 +29,7 @@ private:
 	std::vector<Piece*> *active_pieces_;
 	std::vector<Piece*> *graveyard_;
 	std::vector<Square*> *selected_squares_;
+	Piece *selected_piece_;
 	bool update_;
 };
 }

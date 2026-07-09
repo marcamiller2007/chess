@@ -9,9 +9,11 @@ class Ruleset {
 public:
 	Ruleset(Board::PieceType, Board::Square*, bool);
 	~Ruleset();
+
 	void ChangeType(Board::PieceType);
 	void CreateRuleset(Board::Square*);
 	void DisplayMoves();
+	bool IsPossible(Board::Square*);
 private:
 	void ForPawn();
 	void ForKnight();

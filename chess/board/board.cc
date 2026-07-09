@@ -9,6 +9,7 @@ Board::Board(){
 	active_pieces_ = new std::vector<Piece*>();
 	graveyard_ = new std::vector<Piece*>();
 	selected_squares_ = new std::vector<Square*>();
+	selected_piece_ = nullptr;
 	update_ = false;
 
 	std::cout << "Board init\n";
@@ -173,6 +174,12 @@ void Board::HandleClick(sf::Vector2i click) {
 		for (int j = 0; j < 8; j++) {
 			//std::cout << "Checking Square " << i << ", " << j << "\n";
 			if (board_[i][j]->HandleClick(click)) {
+				if ((selected_piece_ != nullptr) && (selected_piece_->CanMoveTo(board_[i][j]))) {
+					selected_piece_->MoveTo(board_[i][j]);	
+				}
+
+				selected_piece_ = board_[i][j]->GetPiece(); // MAY BE NULLPTR
+
 				std::cout << "Click at Square " << i << ", " << j << "\n";
 				
 				update_ = true;

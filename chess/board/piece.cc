@@ -72,6 +72,14 @@ void Piece::HandleClick() {
 }
 
 /**
+ * This method will check if a given square is a valid move.
+ */
+
+bool Piece::CanMoveTo(Square *square) {
+	return ruleset_->IsPossible(square);
+}
+
+/**
  * This method draws the body of this piece onto the window.
  */
 

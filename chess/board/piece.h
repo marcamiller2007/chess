@@ -28,11 +28,13 @@ class Piece {
 public:
 	Piece(PieceType, Square*, bool);
 	~Piece();
+	
 	void MoveTo(Square*);
 	void Draw(sf::RenderWindow*);
 	void HandleClick();
-	static const std::string kPieceTextures[12];
+	bool CanMoveTo(Square*);
 
+	static const std::string kPieceTextures[12];
 	const bool kIsBlack;
 private:
 	sf::Sprite *body_;
