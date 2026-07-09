@@ -168,78 +168,163 @@ void Ruleset::ForKnight() {
 void Ruleset::ForBishop() {
 	sf::Vector2i initial_position = current_square_->GetLocation();
 
-	for (int i = 1; i < 8; i++) {
-		Board::Square *square_to_add = current_square_->FindNeighbor(
-			{initial_position.x + i, initial_position.y + i}
-		);
+	bool nw = true;
+	bool se = true;
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add;
+
+		if (nw) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x - i, initial_position.y + i}
+			);
+
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					nw = false;
+				}
+			} else {
+				nw = false;
+			}
 		}
 
-		square_to_add = current_square_->FindNeighbor(
-			{initial_position.x - i, initial_position.y - i}
-		);
+		if (se) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x + i, initial_position.y - i}
+			);
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					se = false;
+				}
+			} else {
+				se = false;
+			}
 		}
 	}
 
-	for (int i = 1; i < 8; i++) {
-		Board::Square *square_to_add = current_square_->FindNeighbor(
-			{initial_position.x + i, initial_position.y - i}
-		);
+	bool ne = true;
+	bool sw = true;
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add;
+
+		if (ne) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x + i, initial_position.y + i}
+			);
+
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					ne = false;
+				}
+			} else {
+				ne = false;
+			}
 		}
 
-		square_to_add = current_square_->FindNeighbor(
-			{initial_position.x - i, initial_position.y + i}
-		);
+		if (sw) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x - i, initial_position.y - i}
+			);
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					sw = false;
+				}
+			} else {
+				sw = false;
+			}
 		}
 	}
 }
+
 void Ruleset::ForRook() {
 	sf::Vector2i initial_position = current_square_->GetLocation();
 
-	for (int i = 1; i < 8; i++) {
-		Board::Square *square_to_add = current_square_->FindNeighbor(
-			{initial_position.x, initial_position.y + i}
-		);
+	bool up = true;
+	bool down = true;
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add;
+
+		if (up) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x, initial_position.y + i}
+			);
+
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					up = false;
+				}
+			} else {
+				up = false;
+			}
 		}
 
-		square_to_add = current_square_->FindNeighbor(
-			{initial_position.x, initial_position.y - i}
-		);
+		if (down) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x, initial_position.y - i}
+			);
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					down = false;
+				}
+			} else {
+				down = false;
+			}
 		}
 	}
 
-	for (int i = 1; i < 8; i++) {
-		Board::Square *square_to_add = current_square_->FindNeighbor(
-			{initial_position.x + i, initial_position.y}
-		);
+	bool left = true;
+	bool right = true;
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+	for (int i = 1; i < 8; i++) {
+		Board::Square *square_to_add;
+
+		if (left) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x + i, initial_position.y}
+			);
+
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					left = false;
+				}
+			} else {
+				left = false;
+			}
 		}
 
-		square_to_add = current_square_->FindNeighbor(
-			{initial_position.x - i, initial_position.y}
-		);
+		if (right) {
+			square_to_add = current_square_->FindNeighbor(
+				{initial_position.x - i, initial_position.y}
+			);
 
-		if (square_to_add != nullptr) {
-			possible_moves_->push_back(square_to_add);
+			if (square_to_add != nullptr) {
+				possible_moves_->push_back(square_to_add);
+
+				if (square_to_add->IsPiece()) {
+					right = false;
+				}
+			} else {
+				right = false;
+			}
 		}
 	}
 }
