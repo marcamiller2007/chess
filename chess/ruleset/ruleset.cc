@@ -51,6 +51,15 @@ void Ruleset::CreateRuleset(Board::Square *square) {
 		default:
 			assert(false);
 	}
+
+	// remove all moves that would capture a piece of the same color
+	for (int i = 0; i < possible_moves_->size(); i++) {
+		if ((possible_moves_->at(i)->GetPiece() != nullptr) &&
+				(possible_moves_->at(i)->GetPiece()->kIsBlack == is_black_)) {
+			possible_moves_->erase(possible_moves_->begin() + i);
+			i--;
+		}
+	}
 }
 
 void Ruleset::DisplayMoves() {

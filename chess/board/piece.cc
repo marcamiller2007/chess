@@ -21,23 +21,23 @@ const std::string Piece::kPieceTextures[12] = {
 	"./chess/chess_models/Chess_kdt60.png"
 };
 
-Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : type_(piece_type), is_black_(is_black) {
+Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : kIsBlack(is_black), type_(piece_type) {
 	kills_ = 0;
 	position_ = nullptr;
 
-	texture_ = new sf::Texture((std::filesystem::path) kPieceTextures[(int) type_ * 2 + (int) is_black_]);
+	texture_ = new sf::Texture((std::filesystem::path) kPieceTextures[(int) type_ * 2 + (int) kIsBlack]);
 
 	body_ = new sf::Sprite(*texture_);
 	body_->setOrigin(body_->getGlobalBounds().getCenter());
 	
-	if (is_black_) {
+	if (kIsBlack) {
 		body_->setColor(sf::Color(255, 255, 255));
 	}
 	
 	MoveTo(initial_square);
 
 	assert(position_ != nullptr);
-	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_, is_black_);
+	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_, kIsBlack);
 }
 
 /**

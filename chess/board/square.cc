@@ -45,19 +45,27 @@ bool Square::IsPiece() {
 }
 
 /**
+ * This method will act as a getter for the private field piece_.
+ */
+
+Piece *Square::GetPiece() {
+	return piece_;
+}
+
+/**
  * This method will draw the square and the piece which resides on it, in
  * that order!
  */
 
 void Square::Draw(sf::RenderWindow *window) {
-	window->draw(*body_);
-
-	if (selected_) {
-		window->draw(*highlight_);
-	}
+	window->draw(*body_);	
 
 	if (piece_ != nullptr) {
 		piece_->Draw(window);
+	}
+
+	if (selected_) {
+		window->draw(*highlight_);
 	}
 }
 

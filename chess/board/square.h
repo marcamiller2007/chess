@@ -15,6 +15,7 @@ public:
 
 	void Draw(sf::RenderWindow*);
 	void SetPiece(Piece*);
+	Piece *GetPiece();
 	sf::Vector2f GetCenter();
 	bool IsPiece();
 	void Select();

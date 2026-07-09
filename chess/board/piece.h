@@ -32,11 +32,12 @@ public:
 	void Draw(sf::RenderWindow*);
 	void HandleClick();
 	static const std::string kPieceTextures[12];
+
+	const bool kIsBlack;
 private:
 	sf::Sprite *body_;
 	sf::Texture *texture_;
 	PieceType type_;
-	bool is_black_;
 	Square *position_;
 	Chess::Ruleset::Ruleset *ruleset_;
 	int kills_;
