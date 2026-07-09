@@ -36,6 +36,7 @@ public:
 
 	static const std::string kPieceTextures[12];
 	const bool kIsBlack;
+	bool has_moved_;
 private:
 	sf::Sprite *body_;
 	sf::Texture *texture_;

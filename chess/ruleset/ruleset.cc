@@ -95,8 +95,10 @@ void Ruleset::DisplayMoves() {
 void Ruleset::ForPawn() {
 	sf::Vector2i initial_position = current_square_->GetLocation();
 
+	int max = current_square_->GetPiece()->has_moved_ ? 1 : 2;
+
 	// can move 1 or 2 squares forward
-	for (int i = 1; i <= 2; i++) {
+	for (int i = 1; i <= max; i++) {
 		Board::Square *square;
 
 		if (is_black_) {
@@ -105,10 +107,39 @@ void Ruleset::ForPawn() {
 			square = current_square_->FindNeighbor({initial_position.x - i, initial_position.y});
 		}
 
-		if (square != nullptr) {
+		if ((square != nullptr) && (!square->IsPiece())) {
 			possible_moves_->push_back(square);
 		}
 	}
+
+	// Capture Squares
+	Board::Square *cap;
+	if (is_black_) {
+		cap = current_square_->FindNeighbor({initial_position.x + 1, initial_position.y + 1});
+		if ((cap != nullptr) && cap->IsPiece() && !cap->GetPiece()->kIsBlack) {
+			possible_moves_->push_back(cap);
+		}
+
+		cap = current_square_->FindNeighbor({initial_position.x + 1, initial_position.y - 1});
+		if ((cap != nullptr) && cap->IsPiece() && !cap->GetPiece()->kIsBlack) {
+			possible_moves_->push_back(cap);
+		}
+
+	}	else {
+		cap = current_square_->FindNeighbor({initial_position.x - 1, initial_position.y + 1});
+		if ((cap != nullptr) && cap->IsPiece() && cap->GetPiece()->kIsBlack) {
+			possible_moves_->push_back(cap);
+		}
+
+		cap = current_square_->FindNeighbor({initial_position.x - 1, initial_position.y - 1});
+		if ((cap != nullptr) && cap->IsPiece() && cap->GetPiece()->kIsBlack) {
+			possible_moves_->push_back(cap);
+		}
+
+	}
+	
+
+	// Promotion (Fuhhh)
 }
 
 void Ruleset::ForKnight() {

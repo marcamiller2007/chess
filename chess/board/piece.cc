@@ -35,6 +35,7 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : kIsB
 	}
 	
 	MoveTo(initial_square);
+	has_moved_ = false;
 
 	assert(position_ != nullptr);
 	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_, kIsBlack);
@@ -51,6 +52,8 @@ void Piece::MoveTo(Square *to_square) {
 
 	if (position_ != nullptr) {
 		position_->SetPiece(nullptr);
+
+		kills_++;
 	}
 
 	position_ = to_square;
@@ -58,6 +61,8 @@ void Piece::MoveTo(Square *to_square) {
 
 	// set position of body_
 	body_->setPosition(to_square->GetCenter());
+
+	has_moved_ = true;
 	return;
 }
 
