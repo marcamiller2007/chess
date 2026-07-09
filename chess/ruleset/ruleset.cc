@@ -215,8 +215,34 @@ void Ruleset::ForRook() {
 		}
 	}
 }
-void Ruleset::ForQueen() {}
-void Ruleset::ForKing() {}
+void Ruleset::ForQueen() {
+	ForBishop();
+	ForRook();
+}
+void Ruleset::ForKing() {
+	sf::Vector2i initial_position = current_square_->GetLocation();
+
+	for (int i = 0; i < 4; i++) {
+		Board::Square *square_to_add;
+		sf::Vector2i direction = {(i < 2 ? i : 1), (i == 0 ? (- 1) : (i - 2))};
+
+		square_to_add = current_square_->FindNeighbor(
+			{initial_position.x + direction.x, initial_position.y + direction.y}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+		
+		square_to_add = current_square_->FindNeighbor(
+			{initial_position.x - direction.x, initial_position.y - direction.y}
+		);
+
+		if (square_to_add != nullptr) {
+			possible_moves_->push_back(square_to_add);
+		}
+	}
+}
 
 Ruleset::~Ruleset() {
 	delete possible_moves_;
