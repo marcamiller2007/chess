@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 #include "./board.h"
 
@@ -14,6 +15,21 @@ Board::Board(){
 	white_turn_ = true;
 
 	std::cout << "Board init\n";
+
+	// pick what rows black and white will be
+	std::random_device seed;
+
+	std::mt19937 engine(seed());
+
+	std::uniform_int_distribution<int> distribution(0, 99);
+
+	int num = distribution(engine);
+
+	std::cout << num << "\n";
+
+	player_is_black_ = num % 2 == 0;
+
+	// if player is black then the bottom row will be black.
 }
 
 /**
@@ -35,7 +51,7 @@ void Board::Load() {
 	for (int i = 0; i < 8; i++) {
 		for (int j = 0; j < 8; j++) {
 			sf::Vector2f position(80 + (j * Square::kSquareWidth), 80 + (i * Square::kSquareWidth));
-			if ((i + j) % 2 == 0) {
+			if ((i + j) % 2 == 1) {
 				board_[i][j] = new Square(true, position, this);
 			} else {
 				board_[i][j] = new Square(false, position, this);
@@ -43,22 +59,30 @@ void Board::Load() {
 		}
 	}
 
+	// rows for piece assignment
+
+	int bpawns = player_is_black_ ? 6 : 1;
+	int bpieces = player_is_black_ ? 7 : 0;
+
+	int wpawns = 7 - bpawns;
+	int wpieces = 7 - bpieces;
+
 	// init all Pieces
 	// Pawns
 	for (int i = 0; i < 8; i++) {
-		Piece *w_pawn = new Piece(PieceType::kPawn, board_[6][i], false);
-		Piece *b_pawn = new Piece(PieceType::kPawn, board_[1][i], true);
+		Piece *w_pawn = new Piece(PieceType::kPawn, board_[wpawns][i], false);
+		Piece *b_pawn = new Piece(PieceType::kPawn, board_[bpawns][i], true);
 		
 		active_pieces_->push_back(w_pawn);
 		active_pieces_->push_back(b_pawn);
 	}
 
 	// Knights
-	Piece *wk1 = new Piece(PieceType::kKnight, board_[7][1], false);
-	Piece *wk2 = new Piece(PieceType::kKnight, board_[7][6], false);
+	Piece *wk1 = new Piece(PieceType::kKnight, board_[wpieces][1], false);
+	Piece *wk2 = new Piece(PieceType::kKnight, board_[wpieces][6], false);
 
-	Piece *bk1 = new Piece(PieceType::kKnight, board_[0][1], true);
-	Piece *bk2 = new Piece(PieceType::kKnight, board_[0][6], true);
+	Piece *bk1 = new Piece(PieceType::kKnight, board_[bpieces][1], true);
+	Piece *bk2 = new Piece(PieceType::kKnight, board_[bpieces][6], true);
 
 	active_pieces_->push_back(wk1);
 	active_pieces_->push_back(wk2);
@@ -66,11 +90,11 @@ void Board::Load() {
 	active_pieces_->push_back(bk2);
 
 	// Knights
-	Piece *wb1 = new Piece(PieceType::kBishop, board_[7][2], false);
-	Piece *wb2 = new Piece(PieceType::kBishop, board_[7][5], false);
+	Piece *wb1 = new Piece(PieceType::kBishop, board_[wpieces][2], false);
+	Piece *wb2 = new Piece(PieceType::kBishop, board_[wpieces][5], false);
 
-	Piece *bb1 = new Piece(PieceType::kBishop, board_[0][2], true);
-	Piece *bb2 = new Piece(PieceType::kBishop, board_[0][5], true);
+	Piece *bb1 = new Piece(PieceType::kBishop, board_[bpieces][2], true);
+	Piece *bb2 = new Piece(PieceType::kBishop, board_[bpieces][5], true);
 
 	active_pieces_->push_back(wb1);
 	active_pieces_->push_back(wb2);
@@ -78,11 +102,11 @@ void Board::Load() {
 	active_pieces_->push_back(bb2);
 
 	// Rooks
-	Piece *wr1 = new Piece(PieceType::kRook, board_[7][0], false);
-	Piece *wr2 = new Piece(PieceType::kRook, board_[7][7], false);
+	Piece *wr1 = new Piece(PieceType::kRook, board_[wpieces][0], false);
+	Piece *wr2 = new Piece(PieceType::kRook, board_[wpieces][7], false);
 
-	Piece *br1 = new Piece(PieceType::kRook, board_[0][0], true);
-	Piece *br2 = new Piece(PieceType::kRook, board_[0][7], true);
+	Piece *br1 = new Piece(PieceType::kRook, board_[bpieces][0], true);
+	Piece *br2 = new Piece(PieceType::kRook, board_[bpieces][7], true);
 
 	active_pieces_->push_back(wr1);
 	active_pieces_->push_back(wr2);
@@ -90,15 +114,15 @@ void Board::Load() {
 	active_pieces_->push_back(br2);
 
 	// kings	
-	Piece *wk = new Piece(PieceType::kKing, board_[7][3], false);
-	Piece *bk = new Piece(PieceType::kKing, board_[0][4], true);
+	Piece *wk = new Piece(PieceType::kKing, board_[wpieces][3], false);
+	Piece *bk = new Piece(PieceType::kKing, board_[bpieces][4], true);
 
 	active_pieces_->push_back(wk);
 	active_pieces_->push_back(bk);
 
 	// queens	
-	Piece *wq = new Piece(PieceType::kQueen, board_[7][4], false);
-	Piece *bq = new Piece(PieceType::kQueen, board_[0][3], true);
+	Piece *wq = new Piece(PieceType::kQueen, board_[wpieces][4], false);
+	Piece *bq = new Piece(PieceType::kQueen, board_[bpieces][3], true);
 
 	active_pieces_->push_back(wq);
 	active_pieces_->push_back(bq);

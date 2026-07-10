@@ -23,6 +23,7 @@ public:
 	sf::Vector2i GetLocation();
 	Square *FindNeighbor(sf::Vector2i);
 	bool HandleClick(sf::Vector2i);
+	bool PlayerIsBlack();
 
 	const static int kSquareWidth = 80;
 	const static sf::Color kWhite;

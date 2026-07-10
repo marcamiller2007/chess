@@ -27,6 +27,7 @@ public:
 	void PushSelected(Square*);
 
 	bool white_turn_;
+	bool player_is_black_;
 	Piece *selected_piece_;
 private:
 	Square ***board_;

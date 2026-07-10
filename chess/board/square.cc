@@ -144,6 +144,15 @@ bool Square::HandleClick(sf::Vector2i click) {
 	return false;
 }
 
+/**
+ * This method will return true if the rows closest to the bottom of the window are
+ * where black pieces started the game.
+ */
+
+bool Square::PlayerIsBlack() {
+	return global_state_->player_is_black_;
+}
+
 /* Destructor */
 
 Square::~Square() {
