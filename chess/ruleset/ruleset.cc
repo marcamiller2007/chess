@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "./ruleset.h"
 
 using namespace Chess::Ruleset;
@@ -374,6 +376,48 @@ void Ruleset::ForKing() {
 		if (square_to_add != nullptr) {
 			possible_moves_->push_back(square_to_add);
 		}
+	}
+
+	// Castling
+	if (!current_square_->GetPiece()->has_moved_) {
+		int qs = initial_position.y == 4 ? 0 : 7;
+		//int ks = initial_position.y == 3 ? 0 : 7;
+
+		// Queen Side Rook
+		Board::Square *rook_qs = current_square_->FindNeighbor({initial_position.x, qs});
+		assert(rook_qs != nullptr);
+
+		if (rook_qs->IsPiece() && !(rook_qs->GetPiece()->has_moved_)) {
+			Board::Square *castle = current_square_->FindNeighbor({
+				initial_position.x, (initial_position.y == 4) ? 2 : 5
+			});
+
+			bool something_in_the_way = false;
+			if (qs == 0) {
+				for (int i = 1; i < initial_position.y; i++) {
+					if (current_square_->FindNeighbor({initial_position.x, i})->IsPiece()) {
+						something_in_the_way = true;
+						break;
+					}
+				}
+			} else {
+				for (int i = 6; i > initial_position.y; i--) {
+					if (current_square_->FindNeighbor({initial_position.x, i})->IsPiece()) {
+						something_in_the_way = true;
+						break;
+					}
+				}
+			}
+
+			if (!something_in_the_way) {
+				possible_moves_->push_back(castle);
+			} else {
+				std::cout << "Something found in the way";
+			}
+		}
+
+		// King Side Rook
+
 	}
 }
 

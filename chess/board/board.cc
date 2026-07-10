@@ -210,7 +210,7 @@ void Board::HandleClick(sf::Vector2i click) {
 					selected_piece_->MoveTo(board_[i][j]);
 
 					// Alternate turn
-					white_turn_ = !white_turn_;
+					//white_turn_ = !white_turn_;
 				
 					// Deselect Piece
 					selected_piece_ = nullptr;
