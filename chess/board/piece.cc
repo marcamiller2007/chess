@@ -63,6 +63,7 @@ void Piece::MoveTo(Square *to_square) {
 	body_->setPosition(to_square->GetCenter());
 
 	has_moved_ = true;
+
 	return;
 }
 
@@ -71,8 +72,8 @@ void Piece::MoveTo(Square *to_square) {
  */
 
 void Piece::HandleClick() {
-	// Updates ruleset
-	ruleset_->CreateRuleset(position_);
+	// update and display ruleset
+	ruleset_->CreateRuleset(position_); // Things could have changed
 	ruleset_->DisplayMoves();
 }
 

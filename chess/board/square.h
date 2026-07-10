@@ -29,13 +29,13 @@ public:
 	const static sf::Color kWhite;
 	const static sf::Color kBlack;
 	const static sf::Color kSelected;
+	bool square_is_black_;
 private:
 	Piece *piece_;
 	sf::RectangleShape *body_;
 	sf::CircleShape *highlight_;
 	Board *global_state_;
 	bool selected_;
-	bool is_black_;
 };
 }
 #endif

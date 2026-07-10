@@ -113,16 +113,19 @@ void Board::Load() {
 	active_pieces_->push_back(br1);
 	active_pieces_->push_back(br2);
 
+	int queen_column = (board_[bpieces][3]->square_is_black_) ? 3 : 4;
+	int king_column = 7 - queen_column;
+
 	// kings	
-	Piece *wk = new Piece(PieceType::kKing, board_[wpieces][3], false);
-	Piece *bk = new Piece(PieceType::kKing, board_[bpieces][4], true);
+	Piece *wk = new Piece(PieceType::kKing, board_[wpieces][king_column], false);
+	Piece *bk = new Piece(PieceType::kKing, board_[bpieces][king_column], true);
 
 	active_pieces_->push_back(wk);
 	active_pieces_->push_back(bk);
 
 	// queens	
-	Piece *wq = new Piece(PieceType::kQueen, board_[wpieces][4], false);
-	Piece *bq = new Piece(PieceType::kQueen, board_[bpieces][3], true);
+	Piece *wq = new Piece(PieceType::kQueen, board_[wpieces][queen_column], false);
+	Piece *bq = new Piece(PieceType::kQueen, board_[bpieces][queen_column], true);
 
 	active_pieces_->push_back(wq);
 	active_pieces_->push_back(bq);

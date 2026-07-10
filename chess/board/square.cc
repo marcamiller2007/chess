@@ -11,14 +11,14 @@ const sf::Color Square::kWhite(200, 200, 200);
 const sf::Color Square::kSelected(255, 127, 0, 100);
 
 Square::Square(bool is_black, sf::Vector2f position, Board *global_state)
-							 : global_state_(global_state), is_black_(is_black) {
+							 : square_is_black_(is_black), global_state_(global_state) {
 	piece_ = nullptr;
 	selected_ = false;
 
 	// Graphics for board piece
 	body_ = new sf::RectangleShape({kSquareWidth, kSquareWidth});
 	body_->setPosition(position);
-	body_->setFillColor(is_black_ ? kBlack : kWhite);
+	body_->setFillColor(square_is_black_ ? kBlack : kWhite);
 
 	float radius = kSquareWidth / 6.0f;
 	highlight_ = new sf::CircleShape(radius);
