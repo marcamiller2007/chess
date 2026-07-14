@@ -38,6 +38,8 @@ public:
 	const bool kIsBlack;
 	bool has_moved_;
 private:
+	bool IsCastle(Square*);
+
 	sf::Sprite *body_;
 	sf::Texture *texture_;
 	PieceType type_;

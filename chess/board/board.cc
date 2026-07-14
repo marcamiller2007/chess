@@ -212,7 +212,7 @@ void Board::HandleClick(sf::Vector2i click) {
 					selected_piece_->MoveTo(board_[i][j]);
 
 					// Alternate turn
-					//white_turn_ = !white_turn_;
+					white_turn_ = !white_turn_;
 				
 					// Deselect Piece
 					selected_piece_ = nullptr;
@@ -243,6 +243,16 @@ void Board::SetUpdateFalse() {
 
 void Board::PushSelected(Square *square) {
 	selected_squares_->push_back(square);
+}
+
+/**
+ * This method will handle a move and decide if it is a legal move (returns true) or
+ * an illegal one (returns false). This will evaluate checks, and all move types.
+ * Takes a Move struct as an argument.
+ */
+
+bool Board::TryMove(Move move) {
+	return true;	
 }
 
 /* Destructor */

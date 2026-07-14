@@ -24,7 +24,7 @@ const std::string Piece::kPieceTextures[12] = {
 Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : kIsBlack(is_black), type_(piece_type) {
 	kills_ = 0;
 	position_ = nullptr;
-
+	has_moved_ = false;
 	texture_ = new sf::Texture((std::filesystem::path) kPieceTextures[(int) type_ * 2 + (int) kIsBlack]);
 
 	body_ = new sf::Sprite(*texture_);
@@ -34,11 +34,31 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : kIsB
 		body_->setColor(sf::Color(255, 255, 255));
 	}
 	
-	MoveTo(initial_square);
-	has_moved_ = false;
+	position_ = initial_square;
+	initial_square->SetPiece(this);
+
+	// set position of body_
+	body_->setPosition(initial_square->GetCenter());
+
 
 	assert(position_ != nullptr);
 	ruleset_ = new Chess::Ruleset::Ruleset(type_, position_, kIsBlack);
+}
+
+/**
+ * This function returns true iff a move to the square given is a castle.
+ */
+
+bool Piece::IsCastle(Square *to_square) {
+	int starting_row = position_->GetLocation().x;
+	int to_row = to_square->GetLocation().x;
+	
+	if ((starting_row == to_row) &&
+		  (position_->square_is_black_ == to_square->square_is_black_)) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -49,6 +69,23 @@ Piece::Piece(PieceType piece_type, Square *initial_square, bool is_black) : kIsB
 
 void Piece::MoveTo(Square *to_square) {
 	assert(to_square != nullptr);
+
+	Move move;
+	move.from_square_ = position_;
+	move.to_square_ = to_square;
+	move.ruleset_ = ruleset_;
+
+	// Decide what kind of move it is
+	if (IsCastle(to_square)) {
+		move.type_ = MoveType::kCastle;
+	} else if (!to_square->IsPiece()) {
+		// No piece to take and not a castle
+		move.type_ = MoveType::kPositioning;
+	} else {
+		move.type_ = MoveType::kCapture;
+	}
+
+	bool legal = position_->global_state_->TryMove(move);
 
 	if (position_ != nullptr) {
 		position_->SetPiece(nullptr);
