@@ -1,6 +1,8 @@
 #include <iostream>
 
 #include "./ruleset.h"
+#include "../board/piece.h"
+#include "../board/square.h"
 
 using namespace Chess::Ruleset;
 

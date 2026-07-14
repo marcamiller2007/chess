@@ -2,6 +2,8 @@
 #include <random>
 
 #include "./board.h"
+#include "./square.h"
+#include "./piece.h"
 
 using namespace Chess::Board;
 
